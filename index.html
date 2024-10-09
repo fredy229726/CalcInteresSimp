@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Interés Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .field {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .field input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #calculateBtn {
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #calculateBtn:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calculadora de Interés Simple</h1>
+    <form id="simpleInterestForm">
+        <div class="field">
+            <label for="principal">Monto Inicial (P):</label>
+            <input type="number" id="principal" required placeholder="Ingrese el monto inicial">
+        </div>
+        <div class="field">
+            <label for="rate">Tasa de Interés Anual (%):</label>
+            <input type="number" id="rate" step="0.01" required placeholder="Ingrese la tasa de interés anual">
+        </div>
+        <div class="field">
+            <label for="time">Número de Años (t):</label>
+            <input type="number" id="time" required placeholder="Ingrese el número de años">
+        </div>
+        <button type="button" id="calculateBtn">Calcular</button>
+    </form>
+    <div class="result" id="result">
+        <!-- El resultado se mostrará aquí -->
+    </div>
+</div>
+
+<script>
+    // Función para calcular el interés simple
+    function calcularInteresSimple(principal, tasa, tiempo) {
+        // Convertir la tasa de porcentaje a decimal
+        let tasaDecimal = tasa / 100;
+        // Calcular el monto final usando la fórmula del interés simple
+        let montoFinal = principal * (1 + tasaDecimal * tiempo);
+        return montoFinal.toFixed(2); // Redondear a dos decimales
+    }
+
+    // Agregar un evento click al botón de calcular
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+        // Obtener los valores de los campos
+        let principal = parseFloat(document.getElementById('principal').value);
+        let tasa = parseFloat(document.getElementById('rate').value);
+        let tiempo = parseFloat(document.getElementById('time').value);
+
+        // Verificar que los valores sean números y no estén vacíos
+        if (!isNaN(principal) && !isNaN(tasa) && !isNaN(tiempo)) {
+            // Calcular el monto final
+            let montoFinal = calcularInteresSimple(principal, tasa, tiempo);
+            
+            // Mostrar el resultado en la pantalla
+            document.getElementById('result').innerText = `El monto final después de ${tiempo} años será: $${montoFinal}`;
+        } else {
+            // Mostrar un mensaje de error si algún campo está vacío o no es un número válido
+            document.getElementById('result').innerText = "Por favor, ingrese valores válidos en todos los campos.";
+        }
+    });
+</script>
+
+</body>
+</html>
